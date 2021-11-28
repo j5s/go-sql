@@ -51,6 +51,6 @@ db:
     sql:
 ```
 
-- oracle使用的话需要下载`instantclient`并添加到环境变量。
+- 使用出现oci8报错的情况,需要下载对应操作系统的instantclient，比如`instantclient-basic-linux.x64`和`instantclient-sdk-linux.x64`，解压到同一文件夹并添加到环境变量。(https://www.oracle.com/database/technologies/instant-client/macos-intel-x86-downloads.html)
 - 如果配置文件中指定了sql则执行sql语句，否则执行内置的sql语句。
 
