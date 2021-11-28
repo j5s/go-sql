@@ -17,7 +17,7 @@ Mysql
 
 mssql
 
-![image-20211128135110329](/Users/niudai/Library/Application Support/typora-user-images/image-20211128135110329.png)
+![image-20211128135110329](https://nnotes.oss-cn-hangzhou.aliyuncs.com/notes/image-20211128135110329.png)
 
 oracle
 
