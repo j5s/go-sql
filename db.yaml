@@ -15,19 +15,3 @@ db:
       user: sa
       pass: 123qweASD
     sql:
-  - db_type: postgres
-    conn:
-      host: 118.178.88.46
-      port: 5432
-      db_name: postgres
-      user: postgres
-      pass: password
-    sql:
-  - db_type: oracle
-    conn:
-      host: 106.75.70.130
-      port: 1521
-      db_name: xe
-      user: system
-      pass: oracle
-    sql:

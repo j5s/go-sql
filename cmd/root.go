@@ -38,7 +38,7 @@ var rootCmd = &cobra.Command{
 		if keyword != "" {
 			config.Conf.Keywords = strings.Split(keyword, ",")
 		}
-		fmt.Printf("[匹配关键词] %v\n", config.Conf.Keywords)
+		fmt.Printf("[匹配关键词] %v\n\n", config.Conf.Keywords)
 		for _, dbConfig := range dbConfigs.DB {
 			if config.SupportDb[dbConfig.DbType] {
 				runner, err := database.NewFuncMap[dbConfig.DbType](dbConfig, minRow)

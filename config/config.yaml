@@ -26,7 +26,7 @@ mssql:
   query_column: "SELECT a.name TABLE_NAME,b.name COLUMN_NAME,c.rows TABLE_ROWS FROM {db}..sysobjects a INNER JOIN {db}..syscolumns b ON a.id=b.id INNER JOIN {db}..sysindexes c ON a.id=c.id WHERE a.Type='u' AND c.indid IN(0,1) AND ({genLike}) ORDER BY c.rows desc"
   query_connect: "SELECT DISTINCT client_net_address,local_net_address FROM sys.dm_exec_connections WHERE Session_id IN (select session_id FROM sys.dm_exec_Sessions WHERE host_name IN (SELECT hostname FROM master.dbo.sysprocesses))"
 mysql:
-  query_db: "SELECT schema_name AS `DB` FROM information_schema.schema"
+  query_db: "SELECT schema_name AS `DB` FROM information_schema.schemata"
   default_db:
     - sys
     - mysql
