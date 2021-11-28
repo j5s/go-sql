@@ -1,0 +1,49 @@
+keywords:
+  - name
+  - user
+  - pass
+  - phone
+  - mobile
+  - email
+  - card
+  - certificate
+  - number
+  - addr
+  - 姓名
+  - 电话
+  - 邮箱
+  - 身份证
+  - 地址
+mssql:
+  query_db: "SELECT name DB FROM master..sysdatabases ORDER BY name"
+  default_db:
+    - master
+    - mode
+    - msdb
+    - tempdb
+    - model
+  gen_like: "b.name LIKE '%{keyword}%' OR "
+  query_column: "SELECT a.name TABLE_NAME,b.name COLUMN_NAME,c.rows TABLE_ROWS FROM {db}..sysobjects a INNER JOIN {db}..syscolumns b ON a.id=b.id INNER JOIN {db}..sysindexes c ON a.id=c.id WHERE a.Type='u' AND c.indid IN(0,1) AND ({genLike}) ORDER BY c.rows desc"
+  query_connect: "SELECT DISTINCT client_net_address,local_net_address FROM sys.dm_exec_connections WHERE Session_id IN (select session_id FROM sys.dm_exec_Sessions WHERE host_name IN (SELECT hostname FROM master.dbo.sysprocesses))"
+mysql:
+  query_db: "SELECT schema_name AS `DB` FROM information_schema.schema"
+  default_db:
+    - sys
+    - mysql
+    - information_schema
+    - performance_schema
+  gen_like: "{keyword}|"
+  query_column: "SELECT DISTINCT b.table_schema,b.table_name,a.table_rows,b.column_name FROM information_schema.tables a,information_schema.columns b WHERE a.table_schema=b.table_schema AND a.table_name=b.table_name AND b.column_name REGEXP \"{genLike}\" ORDER BY a.table_rows DESC"
+  query_connect: "show processlist"
+oracle:
+  query_db: "SELECT * FROM v$tablespace"
+  default_db:
+  gen_like: "{keyword}|"
+  query_column: "SELECT a.owner,a.table_name,b.column_name,a.num_rows from all_tables a INNER JOIN ALL_TAB_COLUMNS b on a.table_name=b.table_name AND a.owner=b.owner WHERE num_rows IS NOT NULL AND REGEXP_LIKE(column_name,'{genLike}','i') ORDER BY num_rows DESC"
+  query_connect: "SELECT osuser,a.username,machine from v$session a, v$sqlarea b where a.sql_address =b.address"
+postgres:
+  query_db: "SELECT datname FROM pg_database WHERE datistemplate = false"
+  default_db:
+  gen_like: "column_name like '%{keyword}%' or "
+  query_column: "SELECT b.table_catalog as database_name,b.table_schema,b.table_name,b.column_name,a.n_live_tup as rows FROM pg_stat_user_tables as a inner join information_schema.columns as b on a.schemaname=b.table_schema and a.relname=b.table_name where table_schema<>'information_schema' and table_schema<>'pg_catalog' and table_schema<>'pg_toast' and table_name<>'pg_stat_statements' and ({genLike}) ORDER BY n_live_tup DESC"
+  query_connect: "SELECT * FROM pg_stat_activity"

@@ -1,0 +1,33 @@
+db:
+  - db_type: mysql
+    conn:
+      host: 127.0.0.1
+      port: 3306
+      db_name:
+      user: root
+      pass: root
+    sql:
+  - db_type: mssql
+    conn:
+      host: 127.0.0.1
+      port: 1433
+      db_name: testDB
+      user: sa
+      pass: 123qweASD
+    sql:
+  - db_type: postgres
+    conn:
+      host: 118.178.88.46
+      port: 5432
+      db_name: postgres
+      user: postgres
+      pass: password
+    sql:
+  - db_type: oracle
+    conn:
+      host: 106.75.70.130
+      port: 1521
+      db_name: xe
+      user: system
+      pass: oracle
+    sql:
